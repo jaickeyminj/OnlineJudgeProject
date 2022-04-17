@@ -13,7 +13,7 @@ def signaction(request):
     if request.method=="POST":
         #open connection to db
         m=sql.connect(host="localhost",user="root",password="root",database='onlinejudge')
-        cursor=m.cursor
+        cursor=m.cursor()
         data=request.POST
         #fetch the values
         for key,value in data.items():
@@ -30,7 +30,7 @@ def signaction(request):
             if key=="user_name":
                 un=value
         #store data in db online judge
-        c="insert into users('{}','{}','{}','{}','{}','{}')".format(fn,ln,s,email,pwd,un)
+        c="insert into users values('{}','{}','{}','{}','{}','{}')".format(fn,ln,s,email,pwd,un)
         cursor.execute(c)
         m.commit()
     

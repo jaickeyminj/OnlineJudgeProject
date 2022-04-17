@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Signup Page</title>
+        <title>Login Page</title>
         <style>
             body{
                 font-family: Arial, Helvetica, sans-serif;
@@ -56,14 +56,14 @@
             {% load static %}
             <center><div class="container">
                 <div class="imgcontainer">
-                    <img src="" alt="Avatar" class="avatar">
+                    <img src="{% static 'avtar1.jpg' %}" alt="Avatar" class="avatar">
                 </div>
                 <label for ='email'><b>UserEmail :  </b></label>
                 <input type="email" placeholder="Enter email" name="email" float="right"  required><br>  
                 <label for='password'><b>Password : </b></label>
                 <input type="password" placeholder="Enter Password" name="password" required><br>  
                 <button type="submit"><b>Login</b></button><br>     
-                Don't have accounct <a href="http://localhost:8000/signup/"> register </a>
+                Don't have accounct <a href="http://localhost:8000/signup/"> Register </a>
             </div></center>
         </form>
     </body>
