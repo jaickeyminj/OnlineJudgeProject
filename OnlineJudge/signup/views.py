@@ -58,7 +58,7 @@ def signaction(request):
         myuser.first_name = fname
         myuser.last_name = lname
         # myuser.is_active = False
-        myuser.is_active = False
+        myuser.is_active = True
         myuser.save()
         messages.success(request, "Your Account has been created succesfully!!")
         

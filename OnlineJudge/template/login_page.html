@@ -21,7 +21,7 @@
             form{
                 border: 3px solid #f1f1f1;
             }
-            input[type=email],input[type=password]{
+            input[type=text],input[type=password]{
                 width: 50%;
                 font-size: 15px;
                 margin: 8px 0px;
@@ -66,8 +66,8 @@
                 <div class="imgcontainer">
                     <img src="{% static 'avtar1.jpg' %}" alt="Avatar" class="avatar">
                 </div>
-                <label for ='email'><b>UserEmail :  </b></label>
-                <input type="email" placeholder="Enter email" name="email" float="right"  required><br>  
+                <label for ='email'><b>User Name :  </b></label>
+                <input type="text" placeholder="Enter username" name="username" float="right"  required><br>  
                 <label for='password'><b>Password : </b></label>
                 <input type="password" placeholder="Enter Password" name="password" required><br>  
                 <button type="submit"><b>Login</b></button><br>     
