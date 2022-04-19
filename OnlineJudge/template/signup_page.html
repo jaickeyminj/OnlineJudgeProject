@@ -21,7 +21,7 @@
             form{
                 border: 3px solid #f1f1f1;
             }
-            input[type=email],input[type=text]{
+            input[type=email],input[type=text],input[type=password]{
                 width: 50%;
                 font-size: 15px;
                 margin: 8px 0px;
@@ -54,6 +54,14 @@
         </style>
     </head>
     <body>
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            <strong>Message:</strong> {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+        {% endfor %}
         <center><h1>Register From</h1></center>
         <form action="#" method="post">
             {% csrf_token %}
@@ -74,7 +82,9 @@
             	<label for ='email'><b>Email Id :  </b></label>
             	<input type="email" placeholder="Enter email" name="email" float="right"  required><br>  
             	<label for='password'><b>Password : </b></label>
-            	<input type="text" placeholder="Enter Password" name="password" required><br>
+            	<input type="password" placeholder="Enter Password" name="password" required><br>
+                <label for='password2'><b>Confirm Password : </b></label>
+            	<input type="password" placeholder="Enter Password" name="password2" required><br>
                 <label for='user_name'><b>User Name : </b></label>
             	<input type="text" placeholder="Enter User Name" name="user_name" required><br>  
             	<button type="submit"><b>Signup</b></button><br>     
