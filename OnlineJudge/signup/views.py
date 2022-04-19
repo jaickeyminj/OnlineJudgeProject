@@ -1,5 +1,6 @@
 from django.shortcuts import render
 import mysql.connector as sql
+from django.contrib.auth.models import User
 # from .models import Post
 fn=''
 ln=''
