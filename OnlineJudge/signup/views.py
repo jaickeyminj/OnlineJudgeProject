@@ -3,6 +3,7 @@ import mysql.connector as sql
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from .models import Problem
 # from .models import Post
 # fn=''
 # ln=''
@@ -104,3 +105,8 @@ def loginaction(request):
         # else:
         #     return render(request,'welcome.html')
     return render(request,'login_page.html')
+
+def displayproblem(request):
+    problem = Problem.objects.all()
+
+    return render(request,'DisplayProblem.html',{'problem':problem})

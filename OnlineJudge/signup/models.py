@@ -8,6 +8,9 @@ class Problem(models.Model):
     description = models.CharField(max_length=2000)
     difficulty = models.CharField(max_length=10,default='Easy')
 
+    def __str__(self):
+        return f"{self.problem_id} -> {self.problem_title}"
+
 class Solution(models.Model):
     code = models.CharField(max_length=3000)
     problem_id = models.OneToOneField(Problem, verbose_name=('problem_id'),primary_key=True,on_delete=models.CASCADE)
