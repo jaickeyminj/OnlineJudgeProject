@@ -3,13 +3,17 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
+    <title>Problem List</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
     <script src='main.js'></script>
 </head>
 <body>
-    hello
-    {{problem}}
+    <h1>Problems List</h1>
+    <ul>
+        {%for p in problem %}
+        <li><a href="{{p.problem_id}}">{{p.problem_title}}</a></li>
+        {%endfor%}
+    </ul>
 </body>
 </html>
