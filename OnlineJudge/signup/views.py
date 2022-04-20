@@ -110,3 +110,8 @@ def displayproblem(request):
     problem = Problem.objects.all()
 
     return render(request,'DisplayProblem.html',{'problem':problem})
+
+def displayproblemdetail(request,problem_id):
+    problem = Problem.objects.get(pk=problem_id)
+
+    return render(request,'displayProblemDetail.html',{'problem':problem})

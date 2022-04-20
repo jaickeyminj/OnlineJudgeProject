@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from signup.views import signaction, loginaction, displayproblem
+from signup.views import signaction, loginaction, displayproblem, displayproblemdetail
 # from login.views import loginaction
 
 
@@ -24,5 +24,6 @@ urlpatterns = [
     # path('', include('signup.urls')),
     path('signup/',signaction),
     path('login/',loginaction),
-    path('displayproblem/', displayproblem)
+    path('displayproblem/', displayproblem),
+    path('<str:problem_id>',displayproblemdetail, name='displayproblemdetail'),
 ]

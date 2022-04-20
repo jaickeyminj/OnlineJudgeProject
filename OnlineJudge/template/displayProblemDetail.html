@@ -3,18 +3,14 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Problem List</title>
+    <title>{{problem.problem_title}}</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
     <script src='main.js'></script>
 </head>
 <body>
-    <h1>Problems List</h1>
-    <ul>
-        {%for p in problem %}
-        <li><a href="{% url 'displayproblemdetail' p.problem_id %}">{{p.problem_title}}</a></li>
-        <!-- <li><a href="{{p.problem_id}}">{{p.problem_title}}</a></li> -->
-        {%endfor%}
-    </ul>
+    <!-- <ul> -->
+        <p> {{problem.description}}</p>
+    <!-- </ul> -->
 </body>
-</html>
+</html>>
