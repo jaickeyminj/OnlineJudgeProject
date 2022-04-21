@@ -138,5 +138,5 @@ def runcode(request,problem_id):
             sys.stdout=orig_stdout
             output = e
         print(output)
-    res = render(request,'displayProblemDetail.html',{"code":code_part,"input":y,"output":output,'problem':problem})
+    res = render(request,'displayProblemDetail2.html',{"code":code_part,"input":y,"output":output,'problem':problem})
     return res
