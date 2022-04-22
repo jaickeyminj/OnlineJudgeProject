@@ -27,6 +27,6 @@ urlpatterns = [
     path('login/',loginaction),
     path('displayproblem/', displayproblem),
     path('<str:problem_id>/',displayproblemdetail, name='displayproblemdetail'),
-    path('displayProblemDetail2/',runcode,name='displayproblemdetail2'),
-    url('',include('signup.urls')),
+    # path('<str:problem_id>/<str:problem_myid>',displayproblemdetail,name='displayproblemdetail'),
+    # url('',include('signup.urls')),
 ]

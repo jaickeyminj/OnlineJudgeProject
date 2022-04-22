@@ -108,18 +108,48 @@ def loginaction(request):
     return render(request,'login_page.html')
 
 def displayproblem(request):
+    print("displayprpbelm")
     problem = Problem.objects.all()
     return render(request,'DisplayProblem.html',{'problem':problem})
 
 def displayproblemdetail(request,problem_id):
+    # print("detail")
+    # print(problem_id+"fsfs")
     problem = Problem.objects.filter(problem_id=problem_id).first()
-    return render(request,'displayProblemDetail.html',{'problem':problem})
-
-def runcode(request,problem_id):
     if request.method == 'POST':
+        # print("hello")
         code_part = request.POST['code_area']
         input_part = request.POST['input_area']
-        problem = Problem.objects.filter(problem_id=problem_id).first()
+        # problem = Problem.objects.filter(description=description).first()
+        y = input_part
+        input_part = input_part.replace("\n"," ").split(" ")
+        def input(self):
+            a = input_part[0]
+            del input_part[0]
+            return a
+        try:
+            orig_stdout = sys.stdout
+            sys.stdout = open('file.txt', 'w')
+            exec(code_part)
+            sys.stdout.close()
+            sys.stdout=orig_stdout
+            output = open('file.txt', 'r').read()
+        except Exception as e:
+            sys.stdout.close()
+            sys.stdout=orig_stdout
+            output = e
+        # print(output)
+        res = render(request,'displayProblemDetail.html',{"code":code_part,"input":y,"output":output,'problem':problem})
+        return res
+    return render(request,'displayProblemDetail.html',{'problem':problem})
+
+def runcode(request):
+    print("runcode")
+    if request.method == 'POST':
+        print("hello")
+        code_part = request.POST['code_area']
+        input_part = request.POST['input_area']
+        # problem = Problem.objects.filter(description=description).first()
         y = input_part
         input_part = input_part.replace("\n"," ").split(" ")
         def input(self):
@@ -138,5 +168,5 @@ def runcode(request,problem_id):
             sys.stdout=orig_stdout
             output = e
         print(output)
-    res = render(request,'displayProblemDetail2.html',{"code":code_part,"input":y,"output":output,'problem':problem})
+    res = render(request,'displayProblemDetail2.html',{"code":code_part,"input":y,"output":output})
     return res

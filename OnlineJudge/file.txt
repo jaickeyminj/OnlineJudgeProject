@@ -1,0 +1,4 @@
+123
+Jack1
+type of number <class 'str'>
+type of name <class 'str'>
