@@ -3,7 +3,7 @@ import mysql.connector as sql
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from .models import Problem
+from .models import Problem, Language
 import sys
 # from .models import Post
 # fn=''
@@ -116,32 +116,41 @@ def displayproblemdetail(request,problem_id):
     # print("detail")
     # print(problem_id+"fsfs")
     problem = Problem.objects.filter(problem_id=problem_id).first()
+    language = Language.objects.all()
     if request.method == 'POST':
         # print("hello")
+        language1 = request.POST['language']
+        # print("langauge",language1)
         code_part = request.POST['code_area']
         input_part = request.POST['input_area']
         # problem = Problem.objects.filter(description=description).first()
         y = input_part
-        input_part = input_part.replace("\n"," ").split(" ")
-        def input(self):
-            a = input_part[0]
-            del input_part[0]
-            return a
-        try:
-            orig_stdout = sys.stdout
-            sys.stdout = open('file.txt', 'w')
-            exec(code_part)
-            sys.stdout.close()
-            sys.stdout=orig_stdout
-            output = open('file.txt', 'r').read()
-        except Exception as e:
-            sys.stdout.close()
-            sys.stdout=orig_stdout
-            output = e
+        output = ''
+        if(language1 == "Python"):
+            input_part = input_part.replace("\n"," ").split(" ")
+            def input(self):
+                a = input_part[0]
+                del input_part[0]
+                return a
+            try:
+                orig_stdout = sys.stdout
+                sys.stdout = open('file.txt', 'w')
+                exec(code_part)
+                sys.stdout.close()
+                sys.stdout=orig_stdout
+                output = open('file.txt', 'r').read()
+            except Exception as e:
+                sys.stdout.close()
+                sys.stdout=orig_stdout
+                output = e
         # print(output)
-        res = render(request,'displayProblemDetail.html',{"code":code_part,"input":y,"output":output,'problem':problem})
+        if(language1 == "Java"):
+             print(language1)
+        if(language1 == "C++"):
+            print(language1)
+        res = render(request,'displayProblemDetail.html',{"code":code_part,"input":y,"output":output,'problem':problem,'language':language})
         return res
-    return render(request,'displayProblemDetail.html',{'problem':problem})
+    return render(request,'displayProblemDetail.html',{'problem':problem,'language':language})
 
 def runcode(request):
     print("runcode")

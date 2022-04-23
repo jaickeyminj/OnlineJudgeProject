@@ -16,8 +16,17 @@ class Solution(models.Model):
     problem_id = models.OneToOneField(Problem, verbose_name=('problem_id'),primary_key=True,on_delete=models.CASCADE)
     verdict = models.CharField(max_length=20)
     time = models.DateField(default=timezone.now)
+    def __str__(self):
+        return f"{self.problem_id} -> {self.verdict}"
 
 class TestCase(models.Model):
     input = models.CharField(max_length=200)
     output = models.CharField(max_length=200)
     problem_id = models.OneToOneField(Problem, verbose_name=('problem_id'),primary_key=True,on_delete=models.CASCADE)
+    def __str__(self):
+        return f"{self.problem_id}"
+
+class Language(models.Model):
+    name = models.CharField(max_length=20)
+    def __str__(self):
+        return f"{self.name} "

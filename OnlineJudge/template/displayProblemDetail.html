@@ -23,6 +23,13 @@
   
             <form action="#" method="post">
               {% csrf_token %}
+              <p><b>Language : </b> 
+                <select name="language" class="form-control">
+                  {% for language in language %}
+                    <option value="{{language.name}}">{{ language.name}}</option>
+                  {% endfor %}
+                </select>
+              </p>  
               <div class="form-group row">
                 <div class="col-sm-7 mr-5 ml-3">
                   <label for="comment"><h4>Coding Area</h4></label>
