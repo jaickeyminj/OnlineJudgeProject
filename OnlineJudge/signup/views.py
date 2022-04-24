@@ -161,16 +161,18 @@ def displayproblemdetail(request,problem_id):
                 # s = subprocess.check_output("javac HelloWorld.java;java HelloWorld", shell = True)
                 s = subprocess.run('javac -sourcepath C:\\Users\\jaick\\Documents\\OnlineJudgeProject\\OnlineJudgeProject\\OnlineJudge -d C:\\Users\\jaick\\Documents\\OnlineJudgeProject\\OnlineJudgeProject\\OnlineJudge HelloWorld.java',shell=True, capture_output=True, text=True)
                 # s.stdin.write(b'jack\n')
+                if s.returncode ==0:
                 # for i in input_part:
                     # print(i)
-                s = subprocess.run('java -classpath . HelloWorld',shell=True, capture_output=True, text=True,input=input_part)
+                    s = subprocess.run('java -classpath . HelloWorld',shell=True, capture_output=True, text=True,input=input_part)
                 
                 # s = subprocess.Popen("javac HelloWorld.java;java HelloWorld",shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE,stderr=subprocess.PIPE,encoding="utf-8")
                 print(s.stderr)
                 # print(s.decode("utf-8"))
                 # print(s.communicate())
                 print(s.stdout)
-                output = s.stdout 
+
+                output = s.stdout + '\n' +s.stderr
             except Exception as e:
                 output = e
         if(language1 == "C++"):

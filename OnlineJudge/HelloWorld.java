@@ -7,9 +7,9 @@ String res= null;
 res=s.next();
 System.out.print(res+" ");
 int i=Integer.parseInt(s.next());
-System.out.print(i+" ");
- i=Integer.parseInt(s.next());
-System.out.print(i*4);
+System.out.print(i*i+" ");
+int j = Integer.parseInt(s.next());
+System.out.print(j*34+" "+res+"adjmn");
 }
 
 }
