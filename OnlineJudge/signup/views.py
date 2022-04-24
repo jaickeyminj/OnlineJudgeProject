@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from .models import Problem, Language
 import sys
+from subprocess import Popen,PIPE
 # from .models import Post
 # fn=''
 # ln=''
@@ -148,13 +149,28 @@ def displayproblemdetail(request,problem_id):
         # print(output)
         if(language1 == "Java"):
             print(language1)
+            input_part = request.POST['input_area']
+        # problem = Problem.objects.filter(description=description).first()
+            y = input_part
             try:
+                # input_part = input_part.replace("\n"," ").split(" ")
                 file = open('HelloWorld.java','w')
                 print(code_part)
                 file.write(code_part)
                 file.close()
-                s = subprocess.check_output("javac HelloWorld.java;java HelloWorld", shell = True)
-                print(s.decode("utf-8")+'dshbajhb')
+                # s = subprocess.check_output("javac HelloWorld.java;java HelloWorld", shell = True)
+                s = subprocess.run('javac -sourcepath C:\\Users\\jaick\\Documents\\OnlineJudgeProject\\OnlineJudgeProject\\OnlineJudge -d C:\\Users\\jaick\\Documents\\OnlineJudgeProject\\OnlineJudgeProject\\OnlineJudge HelloWorld.java',shell=True, capture_output=True, text=True)
+                # s.stdin.write(b'jack\n')
+                # for i in input_part:
+                    # print(i)
+                s = subprocess.run('java -classpath . HelloWorld',shell=True, capture_output=True, text=True,input=input_part)
+                
+                # s = subprocess.Popen("javac HelloWorld.java;java HelloWorld",shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE,stderr=subprocess.PIPE,encoding="utf-8")
+                print(s.stderr)
+                # print(s.decode("utf-8"))
+                # print(s.communicate())
+                print(s.stdout)
+                output = s.stdout 
             except Exception as e:
                 output = e
         if(language1 == "C++"):
@@ -164,9 +180,11 @@ def displayproblemdetail(request,problem_id):
                 print(code_part)
                 file.write(code_part)
                 file.close()
-                subprocess.run('g++ HelloWorld.cpp')
-                output = subprocess.run('a.exe',capture_output=True,text=True,shell=True)
+                # subprocess.run('g++ HelloWorld.cpp')
+                # output = subprocess.run('a.exe',capture_output=True,text=True,shell=True)
+                output =  subprocess.run(f'g++ HelloWorld.cpp -o out; ./out', shell=True, capture_output=True, text=True)
                 output = output.stdout
+                print(output+"dsjnkdsjn")
                 # data, temp = os.pipe()
                 # os.write(temp, bytes("5 10\n", "utf-8"));
                 # os.close(temp)
