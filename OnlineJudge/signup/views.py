@@ -5,8 +5,9 @@ import mysql.connector as sql
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from .models import Problem, Language
+from .models import Problem, Language, TestCase
 import sys
+import filecmp
 from subprocess import Popen,PIPE
 # from .models import Post
 # fn=''
@@ -117,9 +118,11 @@ def displayproblem(request):
 
 def displayproblemdetail(request,problem_id):
     # print("detail")
-    # print(problem_id+"fsfs")
+    print(problem_id+"fsfs")
     problem = Problem.objects.filter(problem_id=problem_id).first()
     language = Language.objects.all()
+    testcase = TestCase.objects.filter(problem_id=problem_id).first()
+    
     if request.method == 'POST':
         # print("hello")
         language1 = request.POST['language']
@@ -140,8 +143,23 @@ def displayproblemdetail(request,problem_id):
                 sys.stdout = open('file.txt', 'w')
                 exec(code_part)
                 sys.stdout.close()
+                file = open('pythonTestCaseInput.txt','w')
+                file.write(testcase.input)
+                file.close()
+                file = open('pythonTestCaseOutput.txt','w')
+                file.write(testcase.output)
+                file.close()
                 sys.stdout=orig_stdout
-                output = open('file.txt', 'r').read()
+                # output = open('file.txt', 'r').read()
+                f1 = "file.txt"
+                f2 = "pythonTestCaseOutput.txt"
+  
+                # shallow comparison
+                result = filecmp.cmp(f2, f1)
+                print(result)
+# deep comparison
+                result = filecmp.cmp(f2, f1, shallow=False)
+                print(result)
             except Exception as e:
                 sys.stdout.close()
                 sys.stdout=orig_stdout
