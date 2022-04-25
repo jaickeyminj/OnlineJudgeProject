@@ -118,7 +118,7 @@ def displayproblem(request):
 
 def displayproblemdetail(request,problem_id):
     # print("detail")
-    print(problem_id+"fsfs")
+    # print(problem_id+"fsfs")
     problem = Problem.objects.filter(problem_id=problem_id).first()
     language = Language.objects.all()
     testcase = TestCase.objects.filter(problem_id=problem_id).first()
@@ -143,6 +143,11 @@ def displayproblemdetail(request,problem_id):
                 sys.stdout = open('file.txt', 'w')
                 exec(code_part)
                 sys.stdout.close()
+                with open('file.txt', 'r') as file:
+                    content = file.read()
+
+                with open('file.txt', 'w', newline='\n') as file:
+                    file.write(content.replace('\n',''))
                 file = open('pythonTestCaseInput.txt','w')
                 file.write(testcase.input)
                 file.close()
@@ -150,16 +155,14 @@ def displayproblemdetail(request,problem_id):
                 file.write(testcase.output)
                 file.close()
                 sys.stdout=orig_stdout
-                # output = open('file.txt', 'r').read()
+                output = open('file.txt', 'r').read()
                 f1 = "file.txt"
                 f2 = "pythonTestCaseOutput.txt"
-  
-                # shallow comparison
                 result = filecmp.cmp(f2, f1)
                 print(result)
-# deep comparison
                 result = filecmp.cmp(f2, f1, shallow=False)
                 print(result)
+                # print(same("file.txt","pythonTestCaseOutput.txt"))
             except Exception as e:
                 sys.stdout.close()
                 sys.stdout=orig_stdout
@@ -243,3 +246,17 @@ def runcode(request):
         print(output)
     res = render(request,'displayProblemDetail2.html',{"code":code_part,"input":y,"output":output})
     return res
+
+def same(name1, name2): 
+    print("same")    
+    with open(name1, "rb") as one: 
+        with open(name2, "rb") as two: 
+            chunk = other = True 
+            while chunk or other: 
+                chunk = one.read(1000) 
+                other = two.read(1000) 
+                print(chunk)
+                print(other)
+                if chunk != other: 
+                    return False 
+            return True 
