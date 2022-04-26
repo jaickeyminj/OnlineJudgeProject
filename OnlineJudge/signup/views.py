@@ -129,6 +129,10 @@ def displayproblemdetail(request,problem_id):
         # print("langauge",language1)
         code_part = request.POST['code_area']
         input_part = request.POST['input_area']
+        if 'submit' in request.POST:
+            print('submit')
+        if 'run' in request.POST:
+            print('run')
         # problem = Problem.objects.filter(description=description).first()
         y = input_part
         output = ''
