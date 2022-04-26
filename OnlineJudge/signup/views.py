@@ -129,127 +129,188 @@ def displayproblemdetail(request,problem_id):
         # print("langauge",language1)
         code_part = request.POST['code_area']
         input_part = request.POST['input_area']
-        if 'submit' in request.POST:
-            print('submit')
+        
         if 'run' in request.POST:
             print('run')
-        # problem = Problem.objects.filter(description=description).first()
-        y = input_part
-        output = ''
-        if(language1 == "Python"):
-            input_part = input_part.replace("\n"," ").split(" ")
-            def input(self):
-                a = input_part[0]
-                del input_part[0]
-                return a
-            try:
-                orig_stdout = sys.stdout
-                sys.stdout = open('file.txt', 'w')
-                exec(code_part)
-                sys.stdout.close()
-                with open('file.txt', 'r') as file:
-                    content = file.read()
+            # problem = Problem.objects.filter(description=description).first()
+            y = input_part
+            output = ''
+            if(language1 == "Python"):
+                input_part = input_part.replace("\n"," ").split(" ")
+                def input(self):
+                    a = input_part[0]
+                    del input_part[0]
+                    return a
+                try:
+                    orig_stdout = sys.stdout
+                    sys.stdout = open('file.txt', 'w')
+                    exec(code_part)
+                    sys.stdout.close()
+                    # with open('file.txt', 'r') as file:
+                    #     content = file.read()
 
-                with open('file.txt', 'w', newline='\n') as file:
-                    file.write(content.replace('\n',''))
+                    # with open('file.txt', 'w', newline='\n') as file:
+                    #     file.write(content.replace('\n',''))
+                    sys.stdout=orig_stdout
+                    output = open('file.txt', 'r').read()
+                    # f1 = "file.txt"
+                    # f2 = "pythonTestCaseOutput.txt"
+                    # result = filecmp.cmp(f2, f1)
+                    # print(result)
+                    # result = filecmp.cmp(f2, f1, shallow=False)
+                    # print(result)
+                    # print(same("file.txt","pythonTestCaseOutput.txt"))
+                except Exception as e:
+                    sys.stdout.close()
+                    sys.stdout=orig_stdout
+                    output = e
+            # print(output)
+            if(language1 == "Java"):
+                print(language1)
+                input_part = request.POST['input_area']
+            # problem = Problem.objects.filter(description=description).first()
+                y = input_part
+                try:
+                    # input_part = input_part.replace("\n"," ").split(" ")
+                    file = open('HelloWorld.java','w')
+                    print(code_part)
+                    file.write(code_part)
+                    file.close()
+                    # s = subprocess.check_output("javac HelloWorld.java;java HelloWorld", shell = True)
+                    s = subprocess.run('javac -sourcepath C:\\Users\\jaick\\Documents\\OnlineJudgeProject\\OnlineJudgeProject\\OnlineJudge -d C:\\Users\\jaick\\Documents\\OnlineJudgeProject\\OnlineJudgeProject\\OnlineJudge HelloWorld.java',shell=True, capture_output=True, text=True)
+                    # s.stdin.write(b'jack\n')
+                    if s.returncode ==0:
+                    # for i in input_part:
+                        # print(i)
+                        s = subprocess.run('java -classpath . HelloWorld',shell=True, capture_output=True, text=True,input=input_part)
+                    
+                    # s = subprocess.Popen("javac HelloWorld.java;java HelloWorld",shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE,stderr=subprocess.PIPE,encoding="utf-8")
+                    # print(s.stderr)
+                    # print(s.decode("utf-8"))
+                    # print(s.communicate())
+                    # print(s.stdout)
+
+                    output = s.stdout + '\n' +s.stderr
+                except Exception as e:
+                    output = e
+            # if(language1 == "C++"):
+            #     print(language1)
+            #     try:
+            #         file = open('HelloWorld.cpp','w')
+            #         print(code_part)
+            #         file.write(code_part)
+            #         file.close()
+            #         # subprocess.run('g++ HelloWorld.cpp')
+            #         # output = subprocess.run('a.exe',capture_output=True,text=True,shell=True)
+            #         output =  subprocess.run(f'g++ HelloWorld.cpp -o out; ./out', shell=True, capture_output=True, text=True)
+            #         output = output.stdout
+            #         print(output+"dsjnkdsjn")
+            #         # data, temp = os.pipe()
+            #         # os.write(temp, bytes("5 10\n", "utf-8"));
+            #         # os.close(temp)
+            #         # s = subprocess.check_output("g++ HelloWorld.cpp -o out2;./out2", stdin = data, shell = True)
+            #         # print(s.decode("utf-8")+"hely there")
+            #     except Exception as e:
+            #         output = e
+            res = render(request,'displayProblemDetail.html',{"code":code_part,"input":y,"output":output,'problem':problem,'language':language})
+            return res
+        #submit button
+        if 'submit' in request.POST:
+            print('submit')
+            y = input_part
+            output = ''
+            if(language1 == "Python"):
                 file = open('pythonTestCaseInput.txt','w')
                 file.write(testcase.input)
                 file.close()
-                file = open('pythonTestCaseOutput.txt','w')
-                file.write(testcase.output)
-                file.close()
-                sys.stdout=orig_stdout
-                output = open('file.txt', 'r').read()
-                f1 = "file.txt"
-                f2 = "pythonTestCaseOutput.txt"
-                result = filecmp.cmp(f2, f1)
-                print(result)
-                result = filecmp.cmp(f2, f1, shallow=False)
-                print(result)
-                # print(same("file.txt","pythonTestCaseOutput.txt"))
-            except Exception as e:
-                sys.stdout.close()
-                sys.stdout=orig_stdout
-                output = e
-        # print(output)
-        if(language1 == "Java"):
-            print(language1)
-            input_part = request.POST['input_area']
-        # problem = Problem.objects.filter(description=description).first()
-            y = input_part
-            try:
-                # input_part = input_part.replace("\n"," ").split(" ")
-                file = open('HelloWorld.java','w')
-                print(code_part)
-                file.write(code_part)
-                file.close()
-                # s = subprocess.check_output("javac HelloWorld.java;java HelloWorld", shell = True)
-                s = subprocess.run('javac -sourcepath C:\\Users\\jaick\\Documents\\OnlineJudgeProject\\OnlineJudgeProject\\OnlineJudge -d C:\\Users\\jaick\\Documents\\OnlineJudgeProject\\OnlineJudgeProject\\OnlineJudge HelloWorld.java',shell=True, capture_output=True, text=True)
-                # s.stdin.write(b'jack\n')
-                if s.returncode ==0:
-                # for i in input_part:
-                    # print(i)
-                    s = subprocess.run('java -classpath . HelloWorld',shell=True, capture_output=True, text=True,input=input_part)
-                
-                # s = subprocess.Popen("javac HelloWorld.java;java HelloWorld",shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE,stderr=subprocess.PIPE,encoding="utf-8")
-                print(s.stderr)
-                # print(s.decode("utf-8"))
-                # print(s.communicate())
-                print(s.stdout)
+                input_part = open('pythonTestCaseInput.txt', 'r').read()
+                input_part = input_part.replace("\n"," ").split(" ")
+                def input(self):
+                    a = input_part[0]
+                    del input_part[0]
+                    return a
+                try:
+                    orig_stdout = sys.stdout
+                    sys.stdout = open('file.txt', 'w')
+                    exec(code_part)
+                    sys.stdout.close()
+                    with open('file.txt', 'r') as file:
+                        content = file.read()
 
-                output = s.stdout + '\n' +s.stderr
-            except Exception as e:
-                output = e
-        if(language1 == "C++"):
-            print(language1)
-            try:
-                file = open('HelloWorld.cpp','w')
-                print(code_part)
-                file.write(code_part)
-                file.close()
-                # subprocess.run('g++ HelloWorld.cpp')
-                # output = subprocess.run('a.exe',capture_output=True,text=True,shell=True)
-                output =  subprocess.run(f'g++ HelloWorld.cpp -o out; ./out', shell=True, capture_output=True, text=True)
-                output = output.stdout
-                print(output+"dsjnkdsjn")
-                # data, temp = os.pipe()
-                # os.write(temp, bytes("5 10\n", "utf-8"));
-                # os.close(temp)
-                # s = subprocess.check_output("g++ HelloWorld.cpp -o out2;./out2", stdin = data, shell = True)
-                # print(s.decode("utf-8")+"hely there")
-            except Exception as e:
-                output = e
-        res = render(request,'displayProblemDetail.html',{"code":code_part,"input":y,"output":output,'problem':problem,'language':language})
-        return res
+                    with open('file.txt', 'w', newline='\n') as file:
+                        file.write(content.replace('\n',''))
+                    file = open('pythonTestCaseOutput.txt','w')
+                    file.write(testcase.output)
+                    file.close()
+                    sys.stdout=orig_stdout
+                    output = open('file.txt', 'r').read()
+                    f1 = "file.txt"
+                    f2 = "pythonTestCaseOutput.txt"
+                    result = filecmp.cmp(f2, f1)
+                    print(result)
+                    result = filecmp.cmp(f2, f1, shallow=False)
+                    print(result)
+                    if result == True:
+                        output = output + '\n' +'Result : '+ 'Pass'
+                    else :
+                        output =  'Result : '+ 'Fail \n'
+                    # print(same("file.txt","pythonTestCaseOutput.txt"))
+                except Exception as e:
+                    sys.stdout.close()
+                    sys.stdout=orig_stdout
+                    output = e
+            # print(output)
+            if(language1 == "Java"):
+                print(language1)
+                input_part = request.POST['input_area']
+            # problem = Problem.objects.filter(description=description).first()
+                y = input_part
+                try:
+                    # input_part = input_part.replace("\n"," ").split(" ")
+                    file = open('HelloWorld.java','w')
+                    print(code_part)
+                    file.write(code_part)
+                    file.close()
+                    # s = subprocess.check_output("javac HelloWorld.java;java HelloWorld", shell = True)
+                    s = subprocess.run('javac -sourcepath C:\\Users\\jaick\\Documents\\OnlineJudgeProject\\OnlineJudgeProject\\OnlineJudge -d C:\\Users\\jaick\\Documents\\OnlineJudgeProject\\OnlineJudgeProject\\OnlineJudge HelloWorld.java',shell=True, capture_output=True, text=True)
+                    # s.stdin.write(b'jack\n')
+                    if s.returncode ==0:
+                    # for i in input_part:
+                        # print(i)
+                        s = subprocess.run('java -classpath . HelloWorld',shell=True, capture_output=True, text=True,input=input_part)
+                    
+                    # s = subprocess.Popen("javac HelloWorld.java;java HelloWorld",shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE,stderr=subprocess.PIPE,encoding="utf-8")
+                    print(s.stderr)
+                    # print(s.decode("utf-8"))
+                    # print(s.communicate())
+                    print(s.stdout)
+
+                    output = s.stdout + '\n' +s.stderr
+                except Exception as e:
+                    output = e
+            if(language1 == "C++"):
+                print(language1)
+                try:
+                    file = open('HelloWorld.cpp','w')
+                    print(code_part)
+                    file.write(code_part)
+                    file.close()
+                    # subprocess.run('g++ HelloWorld.cpp')
+                    # output = subprocess.run('a.exe',capture_output=True,text=True,shell=True)
+                    output =  subprocess.run(f'g++ HelloWorld.cpp -o out; ./out', shell=True, capture_output=True, text=True)
+                    output = output.stdout
+                    print(output+"dsjnkdsjn")
+                    # data, temp = os.pipe()
+                    # os.write(temp, bytes("5 10\n", "utf-8"));
+                    # os.close(temp)
+                    # s = subprocess.check_output("g++ HelloWorld.cpp -o out2;./out2", stdin = data, shell = True)
+                    # print(s.decode("utf-8")+"hely there")
+                except Exception as e:
+                    output = e
+            res = render(request,'displayProblemDetail.html',{"code":code_part,"input":y,"output":output,'problem':problem,'language':language})
+            return res
     return render(request,'displayProblemDetail.html',{'problem':problem,'language':language})
 
-def runcode(request):
-    print("runcode")
-    if request.method == 'POST':
-        print("hello")
-        code_part = request.POST['code_area']
-        input_part = request.POST['input_area']
-        # problem = Problem.objects.filter(description=description).first()
-        y = input_part
-        input_part = input_part.replace("\n"," ").split(" ")
-        def input(self):
-            a = input_part[0]
-            del input_part[0]
-            return a
-        try:
-            orig_stdout = sys.stdout
-            sys.stdout = open('file.txt', 'w')
-            exec(code_part)
-            sys.stdout.close()
-            sys.stdout=orig_stdout
-            output = open('file.txt', 'r').read()
-        except Exception as e:
-            sys.stdout.close()
-            sys.stdout=orig_stdout
-            output = e
-        print(output)
-    res = render(request,'displayProblemDetail2.html',{"code":code_part,"input":y,"output":output})
-    return res
 
 def same(name1, name2): 
     print("same")    

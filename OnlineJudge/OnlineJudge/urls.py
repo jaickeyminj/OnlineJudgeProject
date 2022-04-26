@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from signup.views import signaction, loginaction, displayproblem, displayproblemdetail, runcode
+from signup.views import signaction, loginaction, displayproblem, displayproblemdetail
 # from login.views import loginaction
 
 from django.urls import re_path as url
