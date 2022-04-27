@@ -1,15 +1,18 @@
-import java.util.*;
-public class HelloWorld{
-public static void main(String args[]){
-Scanner s = new Scanner(System.in);
-System.out.println("Java says Hello World!");
-String res= null;
-res=s.next();
-System.out.print(res+" ");
-int i=Integer.parseInt(s.next());
-System.out.print(i*i+" ");
-int j = Integer.parseInt(s.next());
-System.out.print(j*34+" "+res+"adjmn");
-}
+import java.util.Scanner;
+public class HelloWorld {
 
+    public static void main(String[] args) {
+        
+        int num1, num2, sum;
+        Scanner sc = new Scanner(System.in);
+        //System.out.println("Enter First Number: ");
+        num1 = sc.nextInt();
+        
+        //System.out.println("Enter Second Number: ");
+        num2 = sc.nextInt();
+        
+        sc.close();
+        sum = num1 * num2;
+        System.out.println(sum);
+    }
 }
