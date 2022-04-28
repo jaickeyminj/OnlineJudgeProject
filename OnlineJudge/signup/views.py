@@ -193,25 +193,6 @@ def displayproblemdetail(request,problem_id):
                     output = s.stdout + '\n' +s.stderr
                 except Exception as e:
                     output = e
-            # if(language1 == "C++"):
-            #     print(language1)
-            #     try:
-            #         file = open('HelloWorld.cpp','w')
-            #         print(code_part)
-            #         file.write(code_part)
-            #         file.close()
-            #         # subprocess.run('g++ HelloWorld.cpp')
-            #         # output = subprocess.run('a.exe',capture_output=True,text=True,shell=True)
-            #         output =  subprocess.run(f'g++ HelloWorld.cpp -o out; ./out', shell=True, capture_output=True, text=True)
-            #         output = output.stdout
-            #         print(output+"dsjnkdsjn")
-            #         # data, temp = os.pipe()
-            #         # os.write(temp, bytes("5 10\n", "utf-8"));
-            #         # os.close(temp)
-            #         # s = subprocess.check_output("g++ HelloWorld.cpp -o out2;./out2", stdin = data, shell = True)
-            #         # print(s.decode("utf-8")+"hely there")
-            #     except Exception as e:
-            #         output = e
             res = render(request,'displayProblemDetail.html',{"code":code_part,"input":y,"output":output,'problem':problem,'language':language})
             return res
         #submit button
@@ -286,25 +267,6 @@ def displayproblemdetail(request,problem_id):
                     print(s.stdout)
 
                     output = s.stdout + '\n' +s.stderr
-                except Exception as e:
-                    output = e
-            if(language1 == "C++"):
-                print(language1)
-                try:
-                    file = open('HelloWorld.cpp','w')
-                    print(code_part)
-                    file.write(code_part)
-                    file.close()
-                    # subprocess.run('g++ HelloWorld.cpp')
-                    # output = subprocess.run('a.exe',capture_output=True,text=True,shell=True)
-                    output =  subprocess.run(f'g++ HelloWorld.cpp -o out; ./out', shell=True, capture_output=True, text=True)
-                    output = output.stdout
-                    print(output+"dsjnkdsjn")
-                    # data, temp = os.pipe()
-                    # os.write(temp, bytes("5 10\n", "utf-8"));
-                    # os.close(temp)
-                    # s = subprocess.check_output("g++ HelloWorld.cpp -o out2;./out2", stdin = data, shell = True)
-                    # print(s.decode("utf-8")+"hely there")
                 except Exception as e:
                     output = e
             res = render(request,'displayProblemDetail.html',{"code":code_part,"input":y,"output":output,'problem':problem,'language':language})
