@@ -9,6 +9,7 @@ from .models import Problem, Language, TestCase
 import sys
 import filecmp
 from subprocess import Popen,PIPE
+from django.views.generic import TemplateView
 # from .models import Post
 # fn=''
 # ln=''
@@ -286,4 +287,7 @@ def same(name1, name2):
                 print(other)
                 if chunk != other: 
                     return False 
-            return True 
+            return True
+
+class HomePageView(TemplateView):
+    template_name = 'home.html' 
