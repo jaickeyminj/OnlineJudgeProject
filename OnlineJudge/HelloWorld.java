@@ -5,14 +5,14 @@ public class HelloWorld {
         
         int num1, num2, sum;
         Scanner sc = new Scanner(System.in);
-        //System.out.println("Enter First Number: ");
+        //System.out.println("");
         num1 = sc.nextInt();
         
-        //System.out.println("Enter Second Number: ");
+        //System.out.println("");
         num2 = sc.nextInt();
         
         sc.close();
         sum = num1 * num2;
-        System.out.println(sum);
+        System.out.println(""+sum);
     }
 }

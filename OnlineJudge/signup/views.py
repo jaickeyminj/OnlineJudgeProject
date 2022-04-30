@@ -247,6 +247,10 @@ def displayproblemdetail(request,problem_id):
                 input_part = request.POST['input_area']
             # problem = Problem.objects.filter(description=description).first()
                 y = input_part
+                file = open('javaTestCaseInput.txt','w')
+                file.write(testcase.input)
+                file.close()
+                input_part = open('javaTestCaseInput.txt', 'r').read()
                 try:
                     # input_part = input_part.replace("\n"," ").split(" ")
                     file = open('HelloWorld.java','w')
@@ -262,12 +266,39 @@ def displayproblemdetail(request,problem_id):
                         s = subprocess.run('java -classpath . HelloWorld',shell=True, capture_output=True, text=True,input=input_part)
                     
                     # s = subprocess.Popen("javac HelloWorld.java;java HelloWorld",shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE,stderr=subprocess.PIPE,encoding="utf-8")
+                    file = open('javaTestCaseOutput.txt','w')
+                    file.write(testcase.output)
+                    file.close()
+                    file = open('javaOutput.txt','w')
+                    file.write(s.stdout)
+                    file.close()
+                    with open('javaOutput.txt', 'r') as file:
+                        content = file.read()
+
+                    with open('javaOutput.txt', 'w', newline='\n') as file:
+                        file.write(content.replace('\n',''))
                     print(s.stderr)
                     # print(s.decode("utf-8"))
                     # print(s.communicate())
                     print(s.stdout)
-
-                    output = s.stdout + '\n' +s.stderr
+                    f1 = "javaOutput.txt"
+                    f2 = "javaTestCaseOutput.txt"
+                    # same(f1,f2)
+                    # print('help')
+                    result = filecmp.cmp(f2, f1)
+                    print(result)
+                    result = filecmp.cmp(f2, f1, shallow=False)
+                    print(result)
+                    output = open('javaOutput.txt', 'r').read()
+                    if result == True:
+                        print('omg')
+                        print(output)
+                        output = output + '\n' +'Result : '+ 'Pass'
+                        print(output)
+                    else :
+                        output =  'Result : '+ 'Fail \n'
+                        output = output + '\n' +s.stderr
+                    # output = s.stdout + '\n' +s.stderr
                 except Exception as e:
                     output = e
             res = render(request,'displayProblemDetail.html',{"code":code_part,"input":y,"output":output,'problem':problem,'language':language})
