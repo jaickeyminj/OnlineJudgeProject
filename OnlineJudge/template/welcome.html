@@ -10,7 +10,17 @@
         </style>
     </head>
     <body>
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            <strong>Message:</strong> {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            <!-- <p>Click here to see the list of questions! <a href="http://localhost:8000/displayproblem/"> QList </a></p> -->
+            </button>
+         </div>
+        {% endfor %}
         <center><h1>Welcome :-)</h1></center>
+        <p>Click here to see the list of questions! <a href="http://localhost:8000/displayproblem/"> QList </a></p>
     </body>
 
 </html>
