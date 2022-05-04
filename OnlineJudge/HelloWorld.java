@@ -5,10 +5,10 @@ public class HelloWorld {
         
         int num1, num2, sum;
         Scanner sc = new Scanner(System.in);
-        //System.out.println("");
+        //System.out.println("Enter First Number: ");
         num1 = sc.nextInt();
         
-        //System.out.println("");
+        //System.out.println();
         num2 = sc.nextInt();
         
         sc.close();
