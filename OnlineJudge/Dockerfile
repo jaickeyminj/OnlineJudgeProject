@@ -1,7 +1,7 @@
 FROM python
 
-WORKDIR D:\DataSet
+# WORKDIR D:\DataSet
 
-COPY HelloWorld.py ./
+# COPY HelloWorld.py ./
 
 CMD [ "python","HelloWorld.py" ]
