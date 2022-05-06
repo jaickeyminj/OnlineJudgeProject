@@ -125,15 +125,12 @@ def displayproblemdetail(request,problem_id):
     testcase = TestCase.objects.filter(problem_id=problem_id).first()
     
     if request.method == 'POST':
-        # print("hello")
         language1 = request.POST['language']
-        # print("langauge",language1)
         code_part = request.POST['code_area']
         input_part = request.POST['input_area']
         
         if 'run' in request.POST:
             print('run')
-            # problem = Problem.objects.filter(description=description).first()
             y = input_part
             output = ''
             if(language1 == "Python"):
@@ -147,56 +144,29 @@ def displayproblemdetail(request,problem_id):
                     sys.stdout = open('file.txt', 'w')
                     exec(code_part)
                     sys.stdout.close()
-                    # with open('file.txt', 'r') as file:
-                    #     content = file.read()
-
-                    # with open('file.txt', 'w', newline='\n') as file:
-                    #     file.write(content.replace('\n',''))
                     sys.stdout=orig_stdout
                     output = open('file.txt', 'r').read()
-                    # f1 = "file.txt"
-                    # f2 = "pythonTestCaseOutput.txt"
-                    # result = filecmp.cmp(f2, f1)
-                    # print(result)
-                    # result = filecmp.cmp(f2, f1, shallow=False)
-                    # print(result)
-                    # print(same("file.txt","pythonTestCaseOutput.txt"))
                 except Exception as e:
                     sys.stdout.close()
                     sys.stdout=orig_stdout
                     output = e
-            # print(output)
             if(language1 == "Java"):
                 print(language1)
                 input_part = request.POST['input_area']
-            # problem = Problem.objects.filter(description=description).first()
                 y = input_part
                 try:
-                    # input_part = input_part.replace("\n"," ").split(" ")
                     file = open('HelloWorld.java','w')
                     print(code_part)
                     file.write(code_part)
                     file.close()
-                    # s = subprocess.check_output("javac HelloWorld.java;java HelloWorld", shell = True)
                     s = subprocess.run('javac -sourcepath C:\\Users\\jaick\\Documents\\OnlineJudgeProject\\OnlineJudgeProject\\OnlineJudge -d C:\\Users\\jaick\\Documents\\OnlineJudgeProject\\OnlineJudgeProject\\OnlineJudge HelloWorld.java',shell=True, capture_output=True, text=True)
-                    # s.stdin.write(b'jack\n')
                     if s.returncode ==0:
-                    # for i in input_part:
-                        # print(i)
                         s = subprocess.run('java -classpath . HelloWorld',shell=True, capture_output=True, text=True,input=input_part)
-                    
-                    # s = subprocess.Popen("javac HelloWorld.java;java HelloWorld",shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE,stderr=subprocess.PIPE,encoding="utf-8")
-                    # print(s.stderr)
-                    # print(s.decode("utf-8"))
-                    # print(s.communicate())
-                    # print(s.stdout)
-
                     output = s.stdout + '\n' +s.stderr
                 except Exception as e:
                     output = e
             res = render(request,'displayProblemDetail.html',{"code":code_part,"input":y,"output":output,'problem':problem,'language':language})
             return res
-        #submit button
         if 'submit' in request.POST:
             print('submit')
             y = input_part
