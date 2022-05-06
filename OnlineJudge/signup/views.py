@@ -130,7 +130,6 @@ def displayproblemdetail(request,problem_id):
         input_part = request.POST['input_area']
         
         if 'run' in request.POST:
-            print('run')
             y = input_part
             output = ''
             if(language1 == "Python"):
@@ -140,6 +139,10 @@ def displayproblemdetail(request,problem_id):
                     del input_part[0]
                     return a
                 try:
+                    file = open('HelloWorld.py','w')
+                    # print(code_part)
+                    file.write(code_part)
+                    file.close()
                     orig_stdout = sys.stdout
                     sys.stdout = open('file.txt', 'w')
                     exec(code_part)
@@ -173,6 +176,10 @@ def displayproblemdetail(request,problem_id):
             if(language1 == "Python"):
                 file = open('pythonTestCaseInput.txt','w')
                 file.write(testcase.input)
+                file.close()
+                file = open('HelloWorld.py','w')
+                    # print(code_part)
+                file.write(code_part)
                 file.close()
                 input_part = open('pythonTestCaseInput.txt', 'r').read()
                 input_part = input_part.replace("\n"," ").split(" ")
