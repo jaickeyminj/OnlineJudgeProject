@@ -1,7 +1,7 @@
 FROM python
 
-# WORKDIR D:\DataSet
+WORKDIR  ./
 
-# COPY HelloWorld.py ./
+COPY HelloWorld.py  ./
 
 CMD [ "python","HelloWorld.py" ]
