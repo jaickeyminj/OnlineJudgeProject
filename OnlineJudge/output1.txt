@@ -1,5 +1,0 @@
-hellomagic
-enter namew
-w
-enter name2e
-e

@@ -133,7 +133,23 @@ def displayproblemdetail(request,problem_id):
             y = input_part
             output = ''
             if(language1 == "Python"):
+                # file = open('data.txt','w')
+                # file.write(input_part)
+                # file.close()
+                print('aaaaaaa1')
                 input_part = input_part.replace("\n"," ").split(" ")
+                # print(input_part)
+                file = open('data.txt','w')
+                for i in input_part:
+                    # print(i)
+                    # i+='\n'
+                    file.write(str(i))
+                # # file = open('data2.txt','w')
+                # # file.write(str(input_part))
+                print('aaaaaaa2')
+                file.close()
+                # print(str(input_part))
+                # input_part = input_part.replace("\n"," ").split(" ")
                 def input(self):
                     a = input_part[0]
                     del input_part[0]
@@ -143,16 +159,30 @@ def displayproblemdetail(request,problem_id):
                     # print(code_part)
                     file.write(code_part)
                     file.close()
+                    print('aaaaaaa3')
                     orig_stdout = sys.stdout
                     sys.stdout = open('file.txt', 'w')
-                    exec(code_part)
+                    # exec(code_part)
+                    
+                    subprocess.run('docker build -t python:0.1 .', shell=True) 
+                    # output = subprocess.run('docker run -t -i python:0.1 > output1.txt', shell=True, capture_output=True)
+                    
+                    file = open('data.txt','r').read()
+                    file1 = file
+                    file.close()
+                    output = subprocess.run('docker run -i python:0.1 > output1.txt', shell=True, capture_output=True,input=file1.encode())
+                    # file.close()
+                    # output1.close()
                     sys.stdout.close()
                     sys.stdout=orig_stdout
-                    output = open('file.txt', 'r').read()
+                    # output = open('file.txt', 'r').read()
+                    output = open('output1.txt', 'r').read()
+                    # output.close()
                 except Exception as e:
                     sys.stdout.close()
                     sys.stdout=orig_stdout
                     output = e
+                    print(e)
             if(language1 == "Java"):
                 print(language1)
                 input_part = request.POST['input_area']
