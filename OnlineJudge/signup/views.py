@@ -160,8 +160,8 @@ def displayproblemdetail(request,problem_id):
                     file.write(code_part)
                     file.close()
                     print('aaaaaaa3')
-                    orig_stdout = sys.stdout
-                    sys.stdout = open('file.txt', 'w')
+                    # orig_stdout = sys.stdout
+                    # sys.stdout = open('file.txt', 'w')
                     # exec(code_part)
                     
                     subprocess.run('docker build -t python:0.1 .', shell=True) 
@@ -169,18 +169,20 @@ def displayproblemdetail(request,problem_id):
                     
                     file = open('data.txt','r').read()
                     file1 = file
-                    file.close()
+                    # file.close()
+                    # file1 ='4\n9'
                     output = subprocess.run('docker run -i python:0.1 > output1.txt', shell=True, capture_output=True,input=file1.encode())
                     # file.close()
                     # output1.close()
-                    sys.stdout.close()
-                    sys.stdout=orig_stdout
+                    # sys.stdout.close()
+                    # sys.stdout=orig_stdout
                     # output = open('file.txt', 'r').read()
                     output = open('output1.txt', 'r').read()
+                    # print(file1)
                     # output.close()
                 except Exception as e:
-                    sys.stdout.close()
-                    sys.stdout=orig_stdout
+                    # sys.stdout.close()
+                    # sys.stdout=orig_stdout
                     output = e
                     print(e)
             if(language1 == "Java"):
