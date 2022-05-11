@@ -215,13 +215,28 @@ def displayproblemdetail(request,problem_id):
                 file.close()
                 input_part = open('pythonTestCaseInput.txt', 'r').read()
                 input_part = input_part.replace("\n"," ").split(" ")
+                file = open('pythonTestCaseInput.txt','w')
+                for i in input_part:
+                    # print(i)
+                    i+='\n'
+                    file.write(str(i))
+                # # file = open('data2.txt','w')
+                # # file.write(str(input_part))
+                # print('aaaaaaa2')
+                file.close()
+                print(input_part)
                 def input(self):
                     a = input_part[0]
                     del input_part[0]
                     return a
                 try:
+                    subprocess.run('docker build -t python:0.2 .', shell=True) 
+                    file = open('pythonTestCaseInput.txt','r').read()
+                    file1 = file
+                    output1 = subprocess.run('docker run -i python:0.2 >file.txt', shell=True, capture_output=True,input=file1.encode())
+                    
                     orig_stdout = sys.stdout
-                    sys.stdout = open('file.txt', 'w')
+                    sys.stdout = open('file1.txt', 'w')
                     exec(code_part)
                     sys.stdout.close()
                     with open('file.txt', 'r') as file:
@@ -229,13 +244,15 @@ def displayproblemdetail(request,problem_id):
 
                     with open('file.txt', 'w', newline='\n') as file:
                         file.write(content.replace('\n',''))
-                    file = open('pythonTestCaseOutput.txt','w')
-                    file.write(testcase.output)
-                    file.close()
+                    # file = open('pythonTestCaseOutput.txt','w')
+                    # file.write(testcase.output)
+                    # file.close()
+                    # read files
                     sys.stdout=orig_stdout
                     output = open('file.txt', 'r').read()
                     f1 = "file.txt"
                     f2 = "pythonTestCaseOutput.txt"
+                    # same(f1,f2)
                     result = filecmp.cmp(f2, f1)
                     print(result)
                     result = filecmp.cmp(f2, f1, shallow=False)
@@ -245,8 +262,9 @@ def displayproblemdetail(request,problem_id):
                     else :
                         output =  'Result : '+ 'Fail \n'
                 except Exception as e:
-                    sys.stdout.close()
-                    sys.stdout=orig_stdout
+                    # sys.stdout.close()
+                    # sys.stdout=orig_stdout
+                    print(e)
                     output = e
             if(language1 == "Java"):
                 print(language1)
