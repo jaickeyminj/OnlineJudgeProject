@@ -8,7 +8,7 @@ num2 = input('')
 
 # Add two numbers
 
-sum = int(num1) + int(num2)
+sum = int(num1) * int(num2)
 
 
 

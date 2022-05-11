@@ -244,9 +244,9 @@ def displayproblemdetail(request,problem_id):
 
                     with open('file.txt', 'w', newline='\n') as file:
                         file.write(content.replace('\n',''))
-                    # file = open('pythonTestCaseOutput.txt','w')
-                    # file.write(testcase.output)
-                    # file.close()
+                    file = open('pythonTestCaseOutput.txt','w')
+                    file.write(testcase.output)
+                    file.close()
                     # read files
                     sys.stdout=orig_stdout
                     output = open('file.txt', 'r').read()
