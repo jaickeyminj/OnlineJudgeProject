@@ -10,25 +10,25 @@ public class HelloWorld {
 
         int num1, num2, sum;
 
-        // Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
-        // //System.out.println("Enter First Number: ");
+        //System.out.println("Enter First Number: ");
 
-        // num1 = sc.nextInt();
-
-        
-
-        // //System.out.println();
-
-        // num2 = sc.nextInt();
+        num1 = sc.nextInt();
 
         
 
-        // sc.close();
+        //System.out.println();
 
-        // sum = num1 * num2;
+        num2 = sc.nextInt();
 
-        System.out.println("HelloWorld");
+        
+
+        sc.close();
+
+        sum = num1 + num2;
+
+        System.out.println(sum);
 
     }
 
