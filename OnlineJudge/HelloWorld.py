@@ -27,7 +27,7 @@ public class HelloWorld {
 
 
 
-        //sc.close();
+        sc.close();
 
 
 
