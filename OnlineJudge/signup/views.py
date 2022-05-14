@@ -186,20 +186,44 @@ def displayproblemdetail(request,problem_id):
                     output = e
                     print(e)
             if(language1 == "Java"):
-                print(language1)
-                input_part = request.POST['input_area']
-                y = input_part
+                # print(language1)
+                # input_part = request.POST['input_area']
+                # y = input_part
+                input_part = input_part.replace("\n"," ").split(" ")
+                print(input_part)
+                # same('data.txt','data1.txt')
+                file = open('data.txt','w')
+                # file1 = open('data1.txt','w')
+                
+                for i in input_part:
+                    # print(i)
+                    # i+='\n'
+                    file.write(str(i)+'\n')
+                print('aaaaaaa2')
+                file.close()
+                
                 try:
+                   
+                    subprocess.run('docker build -t java:1 .', shell=True) 
                     file = open('HelloWorld.java','w')
-                    print(code_part)
+                    # print(code_part)
                     file.write(code_part)
                     file.close()
-                    s = subprocess.run('javac -sourcepath C:\\Users\\jaick\\Documents\\OnlineJudgeProject\\OnlineJudgeProject\\OnlineJudge -d C:\\Users\\jaick\\Documents\\OnlineJudgeProject\\OnlineJudgeProject\\OnlineJudge HelloWorld.java',shell=True, capture_output=True, text=True)
-                    if s.returncode ==0:
-                        s = subprocess.run('java -classpath . HelloWorld',shell=True, capture_output=True, text=True,input=input_part)
+                    file = open('data.txt','r').read()
+                    file1 = file
+                    
+                    output1 = subprocess.run('docker run -i java:1 > outputJAVA.txt', shell=True, capture_output=True,input=file1.encode(),text=True)
+                    print(output.returncode)
+                    print(output.stderr)
+                    print(output.stdout)
+                    s = subprocess.run('javac -sourcepath C:\\Users\\jaick\\Documents\\OnlineJudgeProject\\OnlineJudgeProject\\OnlineJudge -d C:\\Users\\jaick\\Documents\\OnlineJudgeProject\\OnlineJudgeProject\\OnlineJudge\\javaCode HelloWorld.java',shell=True, capture_output=True, text=True)
+                    if s.returncode ==0 and output1.returncode == 0:
+                        s = subprocess.run('java -classpath .\\javaCode HelloWorld',shell=True, capture_output=True, text=True,input=input_part)
+                    # print('xyz')
                     output = s.stdout + '\n' +s.stderr
                 except Exception as e:
                     output = e
+                    print(e)
             res = render(request,'displayProblemDetail.html',{"code":code_part,"input":y,"output":output,'problem':problem,'language':language})
             return res
         if 'submit' in request.POST:
